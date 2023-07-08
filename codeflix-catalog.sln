@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codeflix.Catalog.UnitTests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codeflix.Catalog.Domain", "src\Codeflix.Catalog.Domain\Codeflix.Catalog.Domain.csproj", "{CA4B51CB-EDC0-4B07-8D80-1A011714A14A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codeflix.Catalog.Application", "src\Codeflix.Catalog.Application\Codeflix.Catalog.Application.csproj", "{74720EA7-96D2-4282-AB38-3381A0D8B107}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,6 +18,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{CB40683E-8B38-4086-B2EC-49619A31F1D3} = {6698B7B8-2A23-484D-9C72-8FBB71586BC3}
 		{CA4B51CB-EDC0-4B07-8D80-1A011714A14A} = {779B82DC-C610-433D-85F8-BFAE024BAF94}
+		{74720EA7-96D2-4282-AB38-3381A0D8B107} = {779B82DC-C610-433D-85F8-BFAE024BAF94}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CB40683E-8B38-4086-B2EC-49619A31F1D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -26,5 +29,9 @@ Global
 		{CA4B51CB-EDC0-4B07-8D80-1A011714A14A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA4B51CB-EDC0-4B07-8D80-1A011714A14A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA4B51CB-EDC0-4B07-8D80-1A011714A14A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74720EA7-96D2-4282-AB38-3381A0D8B107}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74720EA7-96D2-4282-AB38-3381A0D8B107}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74720EA7-96D2-4282-AB38-3381A0D8B107}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74720EA7-96D2-4282-AB38-3381A0D8B107}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
