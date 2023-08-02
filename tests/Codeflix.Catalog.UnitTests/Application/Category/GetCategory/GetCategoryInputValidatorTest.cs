@@ -3,7 +3,7 @@ using Codeflix.Catalog.Application.UseCases.Category.GetCategory;
 using FluentAssertions;
 using Xunit;
 
-namespace Codeflix.Catalog.UnitTests.Application.GetCategory;
+namespace Codeflix.Catalog.UnitTests.Application.Category.GetCategory;
 
 [Collection(nameof(GetCategoryTestFixture))]
 public class GetCategoryInputValidatorTest

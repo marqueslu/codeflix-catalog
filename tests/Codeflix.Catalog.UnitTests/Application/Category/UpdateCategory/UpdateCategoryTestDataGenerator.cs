@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Codeflix.Catalog.UnitTests.Application.UpdateCategory;
+namespace Codeflix.Catalog.UnitTests.Application.Category.UpdateCategory;
 
 public static class UpdateCategoryTestDataGenerator
 {

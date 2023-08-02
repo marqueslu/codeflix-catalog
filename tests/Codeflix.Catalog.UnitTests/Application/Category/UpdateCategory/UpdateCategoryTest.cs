@@ -2,14 +2,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Codeflix.Catalog.Application.Exceptions;
 using Codeflix.Catalog.Application.UseCases.Category.Common;
-using Codeflix.Catalog.Domain.Entity;
 using Codeflix.Catalog.Domain.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
 using UseCase = Codeflix.Catalog.Application.UseCases.Category.UpdateCategory;
+using DomainEntity = Codeflix.Catalog.Domain.Entity;
 
-namespace Codeflix.Catalog.UnitTests.Application.UpdateCategory;
+namespace Codeflix.Catalog.UnitTests.Application.Category.UpdateCategory;
 
 [Collection(nameof(UpdateCategoryTestFixture))]
 public class UpdateCategoryTest
@@ -28,7 +28,7 @@ public class UpdateCategoryTest
         parameters: 10,
         MemberType = typeof(UpdateCategoryTestDataGenerator)
     )]
-    public async Task UpdateCategory(Category exampleCategory, UseCase.UpdateCategoryInput input)
+    public async Task UpdateCategory(DomainEntity.Category exampleCategory, UseCase.UpdateCategoryInput input)
     {
         var repositoryMock = _fixture.GetRepositoryMock();
         var unitOfWorkMock = _fixture.GetUnitOfWorkMock();
@@ -70,7 +70,7 @@ public class UpdateCategoryTest
         parameters: 10,
         MemberType = typeof(UpdateCategoryTestDataGenerator)
     )]
-    public async Task UpdateCategoryWithoutProvidingIsActive(Category exampleCategory, UseCase.UpdateCategoryInput exampleInput)
+    public async Task UpdateCategoryWithoutProvidingIsActive(DomainEntity.Category exampleCategory, UseCase.UpdateCategoryInput exampleInput)
     {
         var repositoryMock = _fixture.GetRepositoryMock();
         var unitOfWorkMock = _fixture.GetUnitOfWorkMock();
@@ -117,7 +117,7 @@ public class UpdateCategoryTest
         parameters: 10,
         MemberType = typeof(UpdateCategoryTestDataGenerator)
     )]
-    public async Task UpdateCategoryOnlyName(Category exampleCategory, UseCase.UpdateCategoryInput exampleInput)
+    public async Task UpdateCategoryOnlyName(DomainEntity.Category exampleCategory, UseCase.UpdateCategoryInput exampleInput)
     {
         var repositoryMock = _fixture.GetRepositoryMock();
         var unitOfWorkMock = _fixture.GetUnitOfWorkMock();

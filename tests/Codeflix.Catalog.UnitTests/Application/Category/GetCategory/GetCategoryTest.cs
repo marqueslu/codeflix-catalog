@@ -7,7 +7,7 @@ using Moq;
 using Xunit;
 using UseCase = Codeflix.Catalog.Application.UseCases.Category.GetCategory;
 
-namespace Codeflix.Catalog.UnitTests.Application.GetCategory;
+namespace Codeflix.Catalog.UnitTests.Application.Category.GetCategory;
 
 [Collection(nameof(GetCategoryTestFixture))]
 public class GetCategoryTest
@@ -25,7 +25,7 @@ public class GetCategoryTest
     {
         // Arrange
         var repositoryMock = _fixture.GetRepositoryMock();
-        var exampleCategory = _fixture.GetValidCategory();
+        var exampleCategory = _fixture.GetExampleCategory();
 
         repositoryMock.Setup(x => x.GetAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(exampleCategory);
@@ -66,7 +66,7 @@ public class GetCategoryTest
         var useCase = new UseCase.GetCategory(repositoryMock.Object);
 
         // Act
-         var task = async () => await useCase.Handle(input, CancellationToken.None);
+        var task = async () => await useCase.Handle(input, CancellationToken.None);
 
         // Assert
         await task.Should().ThrowAsync<NotFoundException>();
