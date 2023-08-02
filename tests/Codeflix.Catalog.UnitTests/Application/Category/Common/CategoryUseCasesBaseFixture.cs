@@ -1,18 +1,14 @@
+using System;
 using Codeflix.Catalog.Application.Interfaces;
-using Codeflix.Catalog.Domain.Entity;
+using Codeflix.Catalog.Application.UseCases.Category.CreateCategory;
 using Codeflix.Catalog.Domain.Repository;
 using Codeflix.Catalog.UnitTests.Common;
 using Moq;
-using Xunit;
+using DomainEntity = Codeflix.Catalog.Domain.Entity;
 
-namespace Codeflix.Catalog.UnitTests.Application.DeleteCategory;
+namespace Codeflix.Catalog.UnitTests.Application.Category.Common;
 
-[CollectionDefinition(nameof(DeleteCategoryTestFixture))]
-public class DeleteCategoryTestFixtureCollection : ICollectionFixture<DeleteCategoryTestFixture>
-{
-}
-
-public class DeleteCategoryTestFixture : BaseFixture
+public abstract class CategoryUseCasesBaseFixture : BaseFixture
 {
     public Mock<ICategoryRepository> GetRepositoryMock()
         => new();
@@ -41,9 +37,20 @@ public class DeleteCategoryTestFixture : BaseFixture
         return categoryDescription;
     }
 
-    public Category GetValidCategory()
+    public bool GetRandomBoolean()
+        => (new Random()).NextDouble() < 0.5;
+
+    public CreateCategoryInput GetInput()
         => new(
             GetValidCategoryName(),
-            GetValidCategoryDescription()
+            GetValidCategoryDescription(),
+            GetRandomBoolean()
+        );
+
+    public DomainEntity.Category GetExampleCategory()
+        => new(
+            GetValidCategoryName(),
+            GetValidCategoryDescription(),
+            GetRandomBoolean()
         );
 }
