@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Codeflix.Catalog.UnitTests.Application.CreateCategory;
+namespace Codeflix.Catalog.UnitTests.Application.Category.CreateCategory;
 
 public class CreateCategoryTestDataGenerator
 {

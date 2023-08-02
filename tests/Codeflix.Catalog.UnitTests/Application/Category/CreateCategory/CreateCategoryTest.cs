@@ -1,15 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Codeflix.Catalog.Domain.Entity;
 using Codeflix.Catalog.Domain.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
 using UseCase = Codeflix.Catalog.Application.UseCases.Category.CreateCategory;
 
-namespace Codeflix.Catalog.UnitTests.Application.CreateCategory;
+namespace Codeflix.Catalog.UnitTests.Application.Category.CreateCategory;
 
 [Collection(nameof(CreateCategoryTestFixture))]
 public class CreateCategoryTest
@@ -41,7 +39,7 @@ public class CreateCategoryTest
         // Assert
         repositoryMock.Verify(
             repository => repository.InsertAsync(
-                It.IsAny<Category>(),
+                It.IsAny<Catalog.Domain.Entity.Category>(),
                 It.IsAny<CancellationToken>()),
             Times.Once);
 
@@ -77,7 +75,7 @@ public class CreateCategoryTest
         // Assert
         repositoryMock.Verify(
             repository => repository.InsertAsync(
-                It.IsAny<Category>(),
+                It.IsAny<Catalog.Domain.Entity.Category>(),
                 It.IsAny<CancellationToken>()),
             Times.Once);
 
@@ -116,7 +114,7 @@ public class CreateCategoryTest
         // Assert
         repositoryMock.Verify(
             repository => repository.InsertAsync(
-                It.IsAny<Category>(),
+                It.IsAny<Catalog.Domain.Entity.Category>(),
                 It.IsAny<CancellationToken>()),
             Times.Once);
 
