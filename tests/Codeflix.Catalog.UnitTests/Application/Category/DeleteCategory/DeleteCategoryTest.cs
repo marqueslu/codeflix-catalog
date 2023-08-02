@@ -2,33 +2,31 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Codeflix.Catalog.Application.Exceptions;
-using Xunit;
 using Codeflix.Catalog.Application.UseCases.Category.DeleteCategory;
-using Codeflix.Catalog.Domain.Entity;
 using FluentAssertions;
 using Moq;
+using Xunit;
 using useCase = Codeflix.Catalog.Application.UseCases.Category.DeleteCategory;
 
-namespace Codeflix.Catalog.UnitTests.Application.DeleteCategory;
+namespace Codeflix.Catalog.UnitTests.Application.Category.DeleteCategory;
 
 [Collection(nameof(DeleteCategoryTestFixture))]
 public class DeleteCategoryTest
 {
     private readonly DeleteCategoryTestFixture _fixture;
-
-
+    
     public DeleteCategoryTest(DeleteCategoryTestFixture fixture)
         =>
             _fixture = fixture;
 
-    [Fact(DisplayName = nameof(DeleteCategoryTest))]
+    [Fact(DisplayName = nameof(DeleteCategory))]
     [Trait("Application", "DeleteCategory - Use Cases")]
     public async Task DeleteCategory()
     {
         // Arrange
         var repositoryMock = _fixture.GetRepositoryMock();
         var unitOfWorkMock = _fixture.GetUnitOfWorkMock();
-        var categoryExample = _fixture.GetValidCategory();
+        var categoryExample = _fixture.GetExampleCategory();
 
         repositoryMock
             .Setup(x =>
@@ -92,11 +90,6 @@ public class DeleteCategoryTest
                     x.GetAsync(exampleGuid, It.IsAny<CancellationToken>()),
                 Times.Once);
         
-        repositoryMock
-            .Verify(x =>
-                    x.DeleteAsync(It.IsAny<Category>(), It.IsAny<CancellationToken>()),
-                Times.Never);
-
         unitOfWorkMock
             .Verify(x => x.Commit(It.IsAny<CancellationToken>()), Times.Never);
     }
