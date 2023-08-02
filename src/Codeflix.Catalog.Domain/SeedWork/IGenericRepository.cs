@@ -1,6 +1,6 @@
 namespace Codeflix.Catalog.Domain.SeedWork;
 
-public interface IGenericRepository<TAggregate> : IRepository
+public interface IGenericRepository<TAggregate> : IRepository where TAggregate : AggregateRoot
 {
     Task InsertAsync(TAggregate aggregate, CancellationToken cancellationToken);
     Task<TAggregate> GetAsync(Guid id, CancellationToken cancellationToken);
