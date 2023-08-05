@@ -44,6 +44,16 @@ public class CategoryRepositoryTestFixture : BaseFixture
             GetRandomBoolean()
         );
 
+    public List<Category> GetExampleCategoryList(int length = 10)
+        => Enumerable
+            .Range(0, length)
+            .Select(_ => new Category(
+                GetValidCategoryName(),
+                GetValidCategoryDescription(),
+                GetRandomBoolean()
+            ))
+            .ToList();
+
     public CodeflixCatalogDbContext CreateDbContext()
     {
         return new CodeflixCatalogDbContext(
