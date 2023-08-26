@@ -32,7 +32,7 @@ public class CategoryRepository : ICategoryRepository
 
     public Task DeleteAsync(Category aggregate, CancellationToken cancellationToken)
         => Task.FromResult(_categories.Remove(aggregate));
-    
+
     public Task UpdateAsync(Category aggregate, CancellationToken cancellationToken)
         => Task.FromResult(_categories.Update(aggregate));
 
