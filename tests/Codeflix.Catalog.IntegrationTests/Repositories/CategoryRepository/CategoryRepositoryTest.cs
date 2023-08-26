@@ -26,7 +26,7 @@ public class CategoryRepositoryTest
         await categoryRepository.InsertAsync(exampleCategory, CancellationToken.None);
         await dbContext.SaveChangesAsync(CancellationToken.None);
 
-        var dbCategory = await dbContext.Categories.FindAsync(exampleCategory.Id);
+        var dbCategory = await (_fixture.CreateDbContext(true)).Categories.FindAsync(exampleCategory.Id);
         dbCategory.Should().NotBeNull();
         dbCategory!.Name.Should().Be(exampleCategory.Name);
         dbCategory.Description.Should().Be(exampleCategory.Description);
@@ -45,7 +45,7 @@ public class CategoryRepositoryTest
         await dbContext.AddRangeAsync(exampleCategoryList, CancellationToken.None);
         await dbContext.SaveChangesAsync(CancellationToken.None);
 
-        var categoryRepository = new Repository.CategoryRepository(dbContext);
+        var categoryRepository = new Repository.CategoryRepository(_fixture.CreateDbContext(true));
         var dbCategory = await categoryRepository.GetAsync(exampleCategory.Id, CancellationToken.None);
 
         dbCategory.Should().NotBeNull();
