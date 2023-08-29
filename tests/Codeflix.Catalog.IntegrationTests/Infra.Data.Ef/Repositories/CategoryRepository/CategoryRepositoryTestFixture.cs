@@ -5,7 +5,7 @@ using Codeflix.Catalog.IntegrationTests.Base;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace Codeflix.Catalog.IntegrationTests.Repositories.CategoryRepository;
+namespace Codeflix.Catalog.IntegrationTests.Infra.Data.Ef.Repositories.CategoryRepository;
 
 [CollectionDefinition(nameof(CategoryRepositoryTestFixture))]
 public class CategoryRepositoryTestFixtureCollection : ICollectionFixture<CategoryRepositoryTestFixture>

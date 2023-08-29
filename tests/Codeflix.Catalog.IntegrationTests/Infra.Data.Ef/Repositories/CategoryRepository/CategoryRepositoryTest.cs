@@ -4,7 +4,7 @@ using FluentAssertions;
 using Xunit;
 using Repository = Codeflix.Catalog.Infra.Data.EF.Repositories;
 
-namespace Codeflix.Catalog.IntegrationTests.Repositories.CategoryRepository;
+namespace Codeflix.Catalog.IntegrationTests.Infra.Data.Ef.Repositories.CategoryRepository;
 
 [Collection(nameof(CategoryRepositoryTestFixture))]
 public class CategoryRepositoryTest
