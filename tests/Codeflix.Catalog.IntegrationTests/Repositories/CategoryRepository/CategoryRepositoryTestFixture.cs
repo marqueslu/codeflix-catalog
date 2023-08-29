@@ -1,4 +1,5 @@
 using Codeflix.Catalog.Domain.Entity;
+using Codeflix.Catalog.Domain.SeedWork.SearchableRepository;
 using Codeflix.Catalog.Infra.Data.EF;
 using Codeflix.Catalog.IntegrationTests.Base;
 using Microsoft.EntityFrameworkCore;
@@ -54,9 +55,39 @@ public class CategoryRepositoryTestFixture : BaseFixture
             ))
             .ToList();
 
-    public CodeflixCatalogDbContext CreateDbContext()
+    public List<Category> GetExampleCategoriesListWithNames(IEnumerable<string> names)
+        => names.Select(name =>
+        {
+            var category = GetExampleCategory();
+            category.Update(name);
+            return category;
+        }).ToList();
+
+    public List<Category> CloneCategoriesListOrdered(IEnumerable<Category> categoriesList, string orderBy, SearchOrder order)
     {
-        return new CodeflixCatalogDbContext(
-            new DbContextOptionsBuilder<CodeflixCatalogDbContext>().UseInMemoryDatabase("integration-tests-db").Options);
+        var listClone = new List<Category>(categoriesList);
+        var orderedEnumerable = (orderBy.ToLower(), order) switch
+        {
+            ("name", SearchOrder.Asc) => listClone.OrderBy(x => x.Name),
+            ("name", SearchOrder.Desc) => listClone.OrderByDescending(x => x.Name),
+            ("id", SearchOrder.Asc) => listClone.OrderBy(x => x.Id),
+            ("id", SearchOrder.Desc) => listClone.OrderByDescending(x => x.Id),
+            ("createdat", SearchOrder.Asc) => listClone.OrderBy(x => x.CreatedAt),
+            ("createdat", SearchOrder.Desc) => listClone.OrderByDescending(x => x.CreatedAt),
+            _ => listClone.OrderBy(x => x.Name),
+        };
+        return orderedEnumerable.ToList();
+    }
+
+    public CodeflixCatalogDbContext CreateDbContext(bool preserveData = false)
+    {
+        var context = new CodeflixCatalogDbContext(
+            new DbContextOptionsBuilder<CodeflixCatalogDbContext>()
+                .UseInMemoryDatabase("integration-tests-db")
+                .Options
+        );
+        if (!preserveData)
+            context.Database.EnsureDeleted();
+        return context;
     }
 }
