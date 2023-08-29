@@ -1,8 +1,6 @@
 using Codeflix.Catalog.Domain.Entity;
 using Codeflix.Catalog.Domain.SeedWork.SearchableRepository;
-using Codeflix.Catalog.Infra.Data.EF;
 using Codeflix.Catalog.IntegrationTests.Base;
-using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace Codeflix.Catalog.IntegrationTests.Infra.Data.Ef.Repositories.CategoryRepository;
@@ -45,7 +43,7 @@ public class CategoryRepositoryTestFixture : BaseFixture
             GetRandomBoolean()
         );
 
-    public List<Category> GetExampleCategoryList(int length = 10)
+    public List<Category> GetExampleCategoriesList(int length = 10)
         => Enumerable
             .Range(0, length)
             .Select(_ => new Category(

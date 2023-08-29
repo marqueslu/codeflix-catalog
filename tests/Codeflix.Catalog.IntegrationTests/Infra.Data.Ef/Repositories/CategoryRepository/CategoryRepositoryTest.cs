@@ -41,7 +41,7 @@ public class CategoryRepositoryTest
     {
         var dbContext = _fixture.CreateDbContext();
         var exampleCategory = _fixture.GetExampleCategory();
-        var exampleCategoryList = _fixture.GetExampleCategoryList(15);
+        var exampleCategoryList = _fixture.GetExampleCategoriesList(15);
         exampleCategoryList.Add(exampleCategory);
         await dbContext.AddRangeAsync(exampleCategoryList, CancellationToken.None);
         await dbContext.SaveChangesAsync(CancellationToken.None);
@@ -64,7 +64,7 @@ public class CategoryRepositoryTest
         var dbContext = _fixture.CreateDbContext();
         var exampleId = Guid.NewGuid();
         await dbContext
-            .AddRangeAsync(_fixture.GetExampleCategoryList(15), CancellationToken.None);
+            .AddRangeAsync(_fixture.GetExampleCategoriesList(15), CancellationToken.None);
         await dbContext
             .SaveChangesAsync(CancellationToken.None);
 
@@ -83,7 +83,7 @@ public class CategoryRepositoryTest
         var dbContext = _fixture.CreateDbContext();
         var exampleCategory = _fixture.GetExampleCategory();
         var newCategoriesValues = _fixture.GetExampleCategory();
-        var exampleCategoryList = _fixture.GetExampleCategoryList(15);
+        var exampleCategoryList = _fixture.GetExampleCategoriesList(15);
         exampleCategoryList.Add(exampleCategory);
         await dbContext.AddRangeAsync(exampleCategoryList, CancellationToken.None);
         await dbContext.SaveChangesAsync(CancellationToken.None);
@@ -109,7 +109,7 @@ public class CategoryRepositoryTest
         var dbContext = _fixture.CreateDbContext();
         var exampleCategory = _fixture.GetExampleCategory();
         var newCategoriesValues = _fixture.GetExampleCategory();
-        var exampleCategoryList = _fixture.GetExampleCategoryList(15);
+        var exampleCategoryList = _fixture.GetExampleCategoriesList(15);
         exampleCategoryList.Add(exampleCategory);
         await dbContext.AddRangeAsync(exampleCategoryList, CancellationToken.None);
         await dbContext.SaveChangesAsync(CancellationToken.None);
@@ -128,7 +128,7 @@ public class CategoryRepositoryTest
     public async Task SearchReturnsListAndTotal()
     {
         var dbContext = _fixture.CreateDbContext();
-        var exampleCategoryList = _fixture.GetExampleCategoryList(15);
+        var exampleCategoryList = _fixture.GetExampleCategoriesList(15);
         await dbContext.AddRangeAsync(exampleCategoryList, CancellationToken.None);
         await dbContext.SaveChangesAsync(CancellationToken.None);
         var searchInput = new SearchInput(1, 20, "", "", SearchOrder.Asc);
@@ -187,7 +187,7 @@ public class CategoryRepositoryTest
     )
     {
         var dbContext = _fixture.CreateDbContext();
-        var exampleCategoryList = _fixture.GetExampleCategoryList(quantityCategoryToGenerate);
+        var exampleCategoryList = _fixture.GetExampleCategoriesList(quantityCategoryToGenerate);
         await dbContext.AddRangeAsync(exampleCategoryList, CancellationToken.None);
         await dbContext.SaveChangesAsync(CancellationToken.None);
         var searchInput = new SearchInput(page, perPage, "", "", SearchOrder.Asc);
@@ -286,7 +286,7 @@ public class CategoryRepositoryTest
     )
     {
         var dbContext = _fixture.CreateDbContext();
-        var exampleCategoryList = _fixture.GetExampleCategoryList();
+        var exampleCategoryList = _fixture.GetExampleCategoriesList();
         await dbContext.AddRangeAsync(exampleCategoryList, CancellationToken.None);
         await dbContext.SaveChangesAsync(CancellationToken.None);
         var searchOrder = order.ToLower() == "asc" ? SearchOrder.Asc : SearchOrder.Desc;
