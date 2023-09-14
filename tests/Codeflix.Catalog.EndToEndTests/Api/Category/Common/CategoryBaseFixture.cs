@@ -1,5 +1,6 @@
 using Codeflix.Catalog.Application.UseCases.Category.CreateCategory;
 using Codeflix.Catalog.EndToEndTests.Base;
+using DomainEntity = Codeflix.Catalog.Domain.Entity;
 
 namespace Codeflix.Catalog.EndToEndTests.Api.Category.Common;
 
@@ -35,7 +36,7 @@ public class CategoryBaseFixture : BaseFixture
 
     public bool GetRandomBoolean()
         => (new Random()).NextDouble() < 0.5;
-    
+
     public string GetInvalidNameToShort()
     {
         return Faker.Commerce.ProductName()[..2];
@@ -57,4 +58,29 @@ public class CategoryBaseFixture : BaseFixture
             GetValidCategoryDescription(),
             GetRandomBoolean()
         );
+
+    public DomainEntity.Category GetExampleCategory()
+        => new(
+            GetValidCategoryName(),
+            GetValidCategoryDescription(),
+            GetRandomBoolean()
+        );
+
+    public List<DomainEntity.Category> GetExampleCategoriesList(int length = 10)
+        => Enumerable
+            .Range(0, length)
+            .Select(_ => new DomainEntity.Category(
+                GetValidCategoryName(),
+                GetValidCategoryDescription(),
+                GetRandomBoolean()
+            ))
+            .ToList();
+
+    public List<DomainEntity.Category> GetExampleCategoriesListWithNames(IEnumerable<string> names)
+        => names.Select(name =>
+        {
+            var category = GetExampleCategory();
+            category.Update(name);
+            return category;
+        }).ToList();
 }
