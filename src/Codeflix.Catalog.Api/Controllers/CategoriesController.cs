@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Codeflix.Catalog.Application.UseCases.Category.Common;
 using Codeflix.Catalog.Application.UseCases.Category.CreateCategory;
+using Codeflix.Catalog.Application.UseCases.Category.GetCategory;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,5 +33,17 @@ public class CategoriesController : ControllerBase
             new { output.Id },
             output
         );
+    }
+
+    [HttpGet("{id:guid}")]
+    [ProducesResponseType(typeof(CategoryModelOutput), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Get(
+        [FromRoute] Guid id,
+        CancellationToken cancellationToken
+    )
+    {
+        var output = await _mediator.Send(new GetCategoryInput(id), cancellationToken);
+        return Ok(output);
     }
 }
