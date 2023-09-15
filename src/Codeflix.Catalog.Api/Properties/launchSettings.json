@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Codeflix.Catalog.Apis": {
+    "Codeflix.Catalog.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
