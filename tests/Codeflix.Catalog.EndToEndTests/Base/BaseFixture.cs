@@ -20,15 +20,19 @@ public class BaseFixture
         ApiClient = new ApiClient(HttpClient);
     }
 
-    public CodeflixCatalogDbContext CreateDbContext(bool preserveData = false)
+    public CodeflixCatalogDbContext CreateDbContext()
     {
-        var context = new CodeflixCatalogDbContext(
+        return new CodeflixCatalogDbContext(
             new DbContextOptionsBuilder<CodeflixCatalogDbContext>()
                 .UseInMemoryDatabase($"e2e-tests-db")
                 .Options
         );
-        if (!preserveData)
-            context.Database.EnsureDeleted();
-        return context;
+    }
+
+    public void CleanPersistence()
+    {
+        var context = CreateDbContext();
+        context.Database.EnsureDeleted();
+        context.Database.EnsureCreated();
     }
 }

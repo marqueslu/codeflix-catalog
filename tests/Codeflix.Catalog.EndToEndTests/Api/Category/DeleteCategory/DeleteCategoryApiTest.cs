@@ -7,7 +7,7 @@ using Xunit;
 namespace Codeflix.Catalog.EndToEndTests.Api.Category.DeleteCategory;
 
 [Collection(nameof(DeleteCategoryApiTestFixture))]
-public class DeleteCategoryApiTest
+public class DeleteCategoryApiTest : IDisposable
 {
     private readonly DeleteCategoryApiTestFixture _fixture;
 
@@ -59,4 +59,7 @@ public class DeleteCategoryApiTest
         output.Title.Should().Be("Not Found");
         output.Detail.Should().Be($"Category '{randomGuid}' not found.");
     }
+    
+    public void Dispose()
+        => _fixture.CleanPersistence();
 }

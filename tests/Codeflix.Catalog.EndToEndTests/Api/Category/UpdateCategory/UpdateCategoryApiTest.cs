@@ -9,7 +9,7 @@ using Xunit;
 namespace Codeflix.Catalog.EndToEndTests.Api.Category.UpdateCategory;
 
 [Collection(nameof(UpdateCategoryApiTestFixture))]
-public class UpdateCategoryApiTest
+public class UpdateCategoryApiTest : IDisposable
 {
     private readonly UpdateCategoryApiTestFixture _fixture;
 
@@ -140,7 +140,7 @@ public class UpdateCategoryApiTest
     }
 
     [Theory(DisplayName = nameof(ThrowWhenCantInstantiateAggregate))]
-    [Trait("EndToEnd/API", "Category/Create - Endpoints")]
+    [Trait("EndToEnd/API", "Category/Update - Endpoints")]
     [MemberData(
         nameof(UpdateCategoryApiTestDataGenerator.GetInvalidInputs),
         MemberType = typeof(UpdateCategoryApiTestDataGenerator)
@@ -170,4 +170,7 @@ public class UpdateCategoryApiTest
         output.Status.Should().Be((int)HttpStatusCode.UnprocessableEntity);
         output.Detail.Should().Be(expectedDetail);
     }
+    
+    public void Dispose()
+        => _fixture.CleanPersistence();
 }
