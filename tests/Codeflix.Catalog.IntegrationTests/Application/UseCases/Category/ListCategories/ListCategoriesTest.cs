@@ -42,7 +42,7 @@ public class ListCategoriesTest
             var exampleItem = exampleCategoryList.Find(
                 category => category.Id == outputItem.Id);
             exampleItem.Should().NotBeNull();
-            outputItem!.Name.Should().Be(exampleItem.Name);
+            outputItem!.Name.Should().Be(exampleItem!.Name);
             outputItem.Id.Should().Be(exampleItem.Id);
             outputItem.Description.Should().Be(exampleItem.Description);
             outputItem.IsActive.Should().Be(exampleItem.IsActive);
@@ -171,7 +171,7 @@ public class ListCategoriesTest
         }
     }
 
-    [Theory(DisplayName = nameof(SearchByText))]
+    [Theory(DisplayName = nameof(SearchOrdered))]
     [Trait("Integration/Application", "ListCategories - Use Cases")]
     [InlineData("name", "asc")]
     [InlineData("name", "desc")]

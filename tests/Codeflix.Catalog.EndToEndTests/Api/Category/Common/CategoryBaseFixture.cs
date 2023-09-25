@@ -75,12 +75,4 @@ public class CategoryBaseFixture : BaseFixture
                 GetRandomBoolean()
             ))
             .ToList();
-
-    public List<DomainEntity.Category> GetExampleCategoriesListWithNames(IEnumerable<string> names)
-        => names.Select(name =>
-        {
-            var category = GetExampleCategory();
-            category.Update(name);
-            return category;
-        }).ToList();
 }
