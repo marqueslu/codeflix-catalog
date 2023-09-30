@@ -1,6 +1,7 @@
 using Bogus;
 using Codeflix.Catalog.Infra.Data.EF;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Codeflix.Catalog.EndToEndTests.Base;
 
@@ -11,6 +12,7 @@ public class BaseFixture
     public CustomWebApplicationFactory<Program> WebApplicationFactory { get; set; }
     public HttpClient HttpClient { get; set; }
     public ApiClient ApiClient { get; set; }
+    private readonly string _dbConnectionString;
 
     public BaseFixture()
     {
@@ -18,13 +20,16 @@ public class BaseFixture
         WebApplicationFactory = new CustomWebApplicationFactory<Program>();
         HttpClient = WebApplicationFactory.CreateClient();
         ApiClient = new ApiClient(HttpClient);
+        var configuration = WebApplicationFactory.Services.GetService(typeof(IConfiguration));
+        ArgumentNullException.ThrowIfNull(configuration);
+        _dbConnectionString = ((IConfiguration)configuration).GetConnectionString("CatalogDb");
     }
 
     public CodeflixCatalogDbContext CreateDbContext()
     {
         return new CodeflixCatalogDbContext(
             new DbContextOptionsBuilder<CodeflixCatalogDbContext>()
-                .UseInMemoryDatabase($"e2e-tests-db")
+                .UseMySql(_dbConnectionString, ServerVersion.AutoDetect(_dbConnectionString))
                 .Options
         );
     }
