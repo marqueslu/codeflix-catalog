@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+using Codeflix.Catalog.Api.ApiModels.Category;
 using Codeflix.Catalog.Application.UseCases.Category.Common;
 using Codeflix.Catalog.Application.UseCases.Category.CreateCategory;
 using Codeflix.Catalog.Application.UseCases.Category.DeleteCategory;
@@ -70,17 +70,16 @@ public class CategoriesController : ControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> Update(
         [FromRoute] Guid id,
-        [FromBody] UpdateCategoryInput requestInput,
+        [FromBody] UpdateCategoryApiInput apiInput,
         CancellationToken cancellationToken
     )
     {
         var updateCategoryInput = new UpdateCategoryInput(
             id,
-            requestInput.Name,
-            requestInput.Description,
-            requestInput.IsActive
+            apiInput.Name,
+            apiInput.Description,
+            apiInput.IsActive
         );
-
         var output = await _mediator.Send(updateCategoryInput, cancellationToken);
         return Ok(output);
     }
