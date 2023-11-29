@@ -1,4 +1,5 @@
 using System.Net;
+using Codeflix.Catalog.Api.ApiModels.Response;
 using Codeflix.Catalog.Application.UseCases.Category.Common;
 using Codeflix.Catalog.Application.UseCases.Category.CreateCategory;
 using FluentAssertions;
@@ -24,7 +25,7 @@ public class CreateCategoryApiTest : IDisposable
         var input = _fixture.GetExampleInput();
         var (response, output) = await _fixture
             .ApiClient
-            .Post<CategoryModelOutput>(
+            .Post<ApiResponse<CategoryModelOutput>>(
                 "/categories",
                 input
             );
@@ -32,20 +33,20 @@ public class CreateCategoryApiTest : IDisposable
         response.Should().NotBeNull();
         response!.StatusCode.Should().Be(HttpStatusCode.Created);
 
-        output.Should().NotBeNull();
-        output!.Name.Should().Be(input.Name);
-        output.Description.Should().Be(input.Description);
-        output.IsActive.Should().Be(input.IsActive);
-        output.Id.Should().NotBeEmpty();
-        output.CreatedAt.Should().NotBeSameDateAs(default);
+        output!.Data.Should().NotBeNull();
+        output.Data.Name.Should().Be(input.Name);
+        output.Data.Description.Should().Be(input.Description);
+        output.Data.IsActive.Should().Be(input.IsActive);
+        output.Data.Id.Should().NotBeEmpty();
+        output.Data.CreatedAt.Should().NotBeSameDateAs(default);
 
-        var dbCategory = await _fixture.Persistence.GetById(output.Id);
+        var dbCategory = await _fixture.Persistence.GetById(output.Data.Id);
         dbCategory.Should().NotBeNull();
         dbCategory!.Name.Should().Be(input.Name);
         dbCategory.Description.Should().Be(input.Description);
         dbCategory.IsActive.Should().Be(input.IsActive);
         dbCategory.Id.Should().NotBeEmpty();
-        output.CreatedAt.Should().NotBeSameDateAs(default);
+        output.Data.CreatedAt.Should().NotBeSameDateAs(default);
     }
 
     [Theory(DisplayName = nameof(ThrowWhenCantInstantiateAggregate))]
