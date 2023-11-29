@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using Codeflix.Catalog.Api.Configurations.Polices;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace Codeflix.Catalog.EndToEndTests.Base;
@@ -7,17 +8,24 @@ namespace Codeflix.Catalog.EndToEndTests.Base;
 public class ApiClient
 {
     private readonly HttpClient _httpClient;
+    private readonly JsonSerializerOptions _defaultSerializerOptions;
 
     public ApiClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
+        _defaultSerializerOptions = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = new JsonSnakeCasePolicy(),
+            PropertyNameCaseInsensitive = true
+        };
     }
 
     public async Task<(HttpResponseMessage?, TOutput?)> Post<TOutput>(string route, object payload) where TOutput : class
     {
+        var payloadJson = JsonSerializer.Serialize(payload, _defaultSerializerOptions);
         var response = await _httpClient.PostAsync(route,
             new StringContent(
-                JsonSerializer.Serialize(payload),
+                payloadJson,
                 Encoding.UTF8,
                 "application/json"
             )
@@ -49,7 +57,7 @@ public class ApiClient
     {
         var response = await _httpClient.PutAsync(route,
             new StringContent(
-                JsonSerializer.Serialize(payload),
+                JsonSerializer.Serialize(payload, _defaultSerializerOptions),
                 Encoding.UTF8,
                 "application/json"
             )
@@ -66,7 +74,7 @@ public class ApiClient
         TOutput? output = null;
         if (!string.IsNullOrWhiteSpace(outputString))
             output = JsonSerializer
-                .Deserialize<TOutput>(outputString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                .Deserialize<TOutput>(outputString, _defaultSerializerOptions);
         return output;
     }
 
@@ -78,7 +86,7 @@ public class ApiClient
         if (queryStringParametersObject is null)
             return route;
 
-        var parametersJson = JsonSerializer.Serialize(queryStringParametersObject);
+        var parametersJson = JsonSerializer.Serialize(queryStringParametersObject, _defaultSerializerOptions);
         var parametersDictionary = Newtonsoft
             .Json
             .JsonConvert
