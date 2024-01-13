@@ -3,7 +3,6 @@ using Codeflix.Catalog.Application.UseCases.Category.CreateCategory;
 using Codeflix.Catalog.Domain.Repository;
 using Codeflix.Catalog.Infra.Data.EF;
 using Codeflix.Catalog.Infra.Data.EF.Repositories;
-using MediatR;
 
 namespace Codeflix.Catalog.Api.Configurations;
 
@@ -17,10 +16,9 @@ public static class UseCasesConfiguration
         return services;
     }
 
-    private static IServiceCollection AddRepositories(this IServiceCollection services)
+    private static void AddRepositories(this IServiceCollection services)
     {
         services.AddTransient<ICategoryRepository, CategoryRepository>();
         services.AddTransient<IUnitOfWork, UnitOfWork>();
-        return services;
     }
 }
