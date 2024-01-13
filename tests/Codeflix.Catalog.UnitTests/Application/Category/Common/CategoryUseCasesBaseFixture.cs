@@ -1,4 +1,3 @@
-using System;
 using Codeflix.Catalog.Application.Interfaces;
 using Codeflix.Catalog.Application.UseCases.Category.CreateCategory;
 using Codeflix.Catalog.Domain.Repository;
@@ -36,9 +35,6 @@ public abstract class CategoryUseCasesBaseFixture : BaseFixture
 
         return categoryDescription;
     }
-
-    public bool GetRandomBoolean()
-        => (new Random()).NextDouble() < 0.5;
 
     public CreateCategoryInput GetInput()
         => new(
